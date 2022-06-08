@@ -9,27 +9,29 @@ const createBook1= async function (req, res) {
 
 const getBookData1= async function (req, res) {
     //let allBook= await bookModel1.find()
-    let allBook= await bookModel1.find({bookName:"THEGOLDENMAN" ,authorName:"sk"})
+    let allBook= await bookModel1.find().select({bookName:1 ,authorName:1,_id:0});
     res.send({msg: allBook})
 }
 const getBooksInYear = async function (req, res) {
-    let allBook= await bookModel1.find({year:2021})
+    let year=req.body.year
+    let allBook=bookModel1.find({year:year})
     res.send({msg: allBook})
 
 }
 const getParticularBooks = async function (req, res) {
+    let condition=req.body
     let allBook= await bookModel1.find({$or:[{bookName:"THEGOLDENTEMPLE"},{year:2020}]})
     res.send({msg: allBook})
 
 }
 const getXINRBooks= async function (req, res) {
-let allBooks= await bookModel1.find({ indianPrice : { $in: [100, 200, 500] }     })
+let allBooks= await bookModel1.find({["price.indianPrice"]: {$in:["100INR", "200INR", "500INR"]} })
 res.send({msg: allBook})
 }
 const getRandomBooks  = async function (req, res) {
     //let allBook= await bookModel1.find({[$or{totalPages:{$gt:500}}{stockAvailable:"true"}]})
-    let allBooks= await bookModel1.find({    totalPages : {$gt: 500}})
-    res.send({msg: allBook})
+    let allBook= await bookModel1.find({$or:[{stockAvailable:"true"},{ totalPages : {$gt: 500}}]})
+    res.send({msg :allBook})
 
 }
 module.exports.createBook1= createBook1
