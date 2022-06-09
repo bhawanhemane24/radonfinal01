@@ -1,10 +1,7 @@
 const mongoose = require('mongoose')
  const bookSchema = new mongoose.Schema( {
-     names:"String" ,
-     author_id:{ 
-         type:Number,
-         duplicate:true
-     },
+     names:String ,
+     author_id:String,
      price:Number ,
      ratings: Number
 

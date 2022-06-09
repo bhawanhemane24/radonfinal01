@@ -31,8 +31,8 @@ router.post("/createAuthor", BooksController2.createAuthor)
 router.get("/getbookData", BooksController2.getbookData)
 router.get("/authorOfBook", BooksController2.authorOfBook)
 router.get("/findBookcost", BooksController2.findBookcost)
-
-
+router.get("/bookByAuthorid",BooksController2.bookByAuthorid)
+router.get("/listofauthor",BooksController2.listofauthor)
 
 
 

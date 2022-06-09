@@ -3,6 +3,7 @@ const bookModel1 = require("../models/bookModel1")
 
 const createBook1= async function (req, res) {
     let data= req.body
+    
     let savedData= await bookModel1.create(data)
     res.send({msg: savedData})
 }
