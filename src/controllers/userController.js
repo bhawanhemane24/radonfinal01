@@ -14,7 +14,6 @@ const createUser = async function (abcd, xyz) {
 const loginUser = async function (req, res) {
   let userName = req.body.emailId;
   let password = req.body.password;
-
   let user = await userModel.findOne({ emailId: userName, password: password });
   if (!user)
     return res.send({
@@ -31,7 +30,7 @@ const loginUser = async function (req, res) {
   let token = jwt.sign(
     {
       userId: user._id.toString(),
-      batch: "thorium",
+      batch: "Radon",
       organisation: "FunctionUp",
     },
     "functionup-radon"
@@ -43,11 +42,6 @@ const loginUser = async function (req, res) {
 const getUserData = async function (req, res) {
   let token = req.headers["x-Auth-token"];
   if (!token) token = req.headers["x-auth-token"];
-
-  //If no token is present in the request header return error
-  if (!token) return res.send({ status: false, msg: "token must be present" });
-
-  console.log(token);
   
   // If a token is present then decode the token with verify function
   // verify takes two inputs:
@@ -71,20 +65,31 @@ const updateUser = async function (req, res) {
 // Check if the token is present
 // Check if the token present is a valid token
 // Return a different error message in both these cases
+let userId = req.params.userId;
 
-  let userId = req.params.userId;
   let user = await userModel.findById(userId);
   //Return an error if no user with the given id exists in the db
   if (!user) {
     return res.send("No such user exists");
   }
-
+  
   let userData = req.body;
   let updatedUser = await userModel.findOneAndUpdate({ _id: userId }, userData);
   res.send({ status: updatedUser, data: updatedUser });
-};
+}
+const deleteUser = async function (req, res) {
+  let userId = req.params.userId;
+  let user = await userModel.findById(userId);
+  
+  let userData = req.body;
+  let delteteUser = await userModel.deleteOne({ _id: userId }, userData);
+  res.send({ status: deleteUser, data: deleteUser });
+
+}
+
 
 module.exports.createUser = createUser;
 module.exports.getUserData = getUserData;
 module.exports.updateUser = updateUser;
 module.exports.loginUser = loginUser;
+module.exports.deleteUser=deleteUser;
