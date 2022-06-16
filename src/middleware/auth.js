@@ -2,7 +2,7 @@ const jwt=require("jsonwebtoken")
 const authenticate = function(req, res, next) {
     //check the token in request header
     
-    let token = req.headers["x-Auth-token"];
+    let token = req.headers["x-Auth-token"];g
     if (!token) token = req.headers["x-auth-token"];
   
     //If no token is present in the request header return error
